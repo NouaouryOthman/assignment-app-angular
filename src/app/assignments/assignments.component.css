@@ -21,3 +21,40 @@
   display:flex;
   flex-direction: row;
 }
+
+.header{
+  position: sticky;
+}
+
+
+table {
+  width: 100%;
+}
+
+.example-container {
+  height: 400px;
+  max-width: 100%;
+  overflow: auto;
+}
+
+.mat-row .mat-cell {
+  border-bottom: 1px solid transparent;
+  border-top: 1px solid transparent;
+  cursor: pointer;
+}
+
+.mat-row:hover .mat-cell {
+  border-color: currentColor;
+}
+
+.demo-row-is-clicked {
+  font-weight: bold;
+}
+
+.validate-button {
+  background: green;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}

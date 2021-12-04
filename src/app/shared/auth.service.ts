@@ -8,6 +8,13 @@ export class AuthService {
 
   constructor() { }
 
+
+  person = {
+    email: "admin@admin.com",
+    password: "testadmin123",
+    isAdmin: true
+  }
+
   logIn() {
     // dans la vraie vie, on devrait ici passer un login et un password
     // puis envoyer une requête sur un web service distant qui va
@@ -16,6 +23,7 @@ export class AuthService {
     // sinon on redirige vers la page de connexion avec un message d'erreur
 
     // nous on simplifie pour le moment.
+    
     this.loggedIn = true;
   }
 

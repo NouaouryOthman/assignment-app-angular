@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { ignoreElements } from 'rxjs';
 import { AssignmentsService } from '../shared/assignments.service';
 import { Assignment } from './assignment.model';
@@ -14,25 +16,26 @@ export class AssignmentsComponent implements OnInit {
 
   assignments: Assignment[] = [];
   // slider pour changer la limite
-  sliderLimit:number=20;
+  sliderLimit: number = 20;
 
   // Pour pagination
   page: number = 1;
   limit: number = 20;
-  totalDocs:number=0;
-  totalPages: number=0;
+  totalDocs: number = 0;
+  totalPages: number = 0;
   hasPrevPage: boolean = false;
   prevPage: number = 0;
-  hasNextPage: boolean=false;
+  hasNextPage: boolean = false;
   nextPage: number = 0;
+  displayedColumns: string[] = ['id', 'nom', 'dateDeRendu', 'rendu', 'supprimer', 'modifier', 'valider'];
 
-  constructor(private assignmentsService: AssignmentsService) {}
+  clickedRows = new Set<Assignment>();
+  constructor(private assignmentsService: AssignmentsService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     console.log('Appelé avant affichage');
     // appelée avant l'affichage du composant
     // on demande les donnnées au service de gestion des assignments
-
     this.getAssignments();
   }
 
@@ -40,14 +43,14 @@ export class AssignmentsComponent implements OnInit {
     this.assignmentsService.getAssignmentsPagine(this.page, this.limit).subscribe((data) => {
       this.assignments = data.docs;
       this.page = data.page;
-       this.limit = data.limit;
-       this.totalDocs = data.totalDocs;
-       this.totalPages = data.totalPages;
-       this.hasPrevPage = data.hasPrevPage;
-       this.prevPage = data.prevPage;
-       this.hasNextPage = data.hasNextPage;
-       this.nextPage = data.nextPage;
-       console.log("données reçues");
+      this.limit = data.limit;
+      this.totalDocs = data.totalDocs;
+      this.totalPages = data.totalPages;
+      this.hasPrevPage = data.hasPrevPage;
+      this.prevPage = data.prevPage;
+      this.hasNextPage = data.hasNextPage;
+      this.nextPage = data.nextPage;
+      console.log("données reçues");
     });
   }
 
@@ -58,13 +61,13 @@ export class AssignmentsComponent implements OnInit {
   }
 
   pagePrecedente() {
-      this.page = this.prevPage ;
-      this.getAssignments();
+    this.page = this.prevPage;
+    this.getAssignments();
   }
 
   pageSuivante() {
-      this.page = this.nextPage ;
-      this.getAssignments();
+    this.page = this.nextPage;
+    this.getAssignments();
   }
 
   dernierePage() {
@@ -75,5 +78,33 @@ export class AssignmentsComponent implements OnInit {
   premierePage() {
     this.page = 1;
     this.getAssignments();
+  }
+
+  onDelete(assignment: Assignment) {
+    this.assignmentsService.deleteAssignment(assignment).subscribe((response) => {
+      this.getAssignments();
+      console.log(response.message);
+    });
+  }
+
+  onValidate(assignment: Assignment) {
+    if (!assignment.rendu) {
+      assignment.rendu = true;
+    }
+    else { assignment.rendu = false; }
+    this.assignmentsService.updateAssignment(assignment)
+      .subscribe((response) => {
+        this.getAssignments();
+        console.log(response.message);
+      })
+  }
+
+  openSnackBar(assignment: Assignment, mode: string) {
+    if (mode == 'supprimer') {
+      this.snackBar.open('Le devoir ' + assignment.nom + ' a été supprimé', 'Ok!');
+    }
+    if (mode == 'valider') {
+      this.snackBar.open('Le devoir ' + assignment.nom + ' a été marqué rendu', 'Ok');
+    }
   }
 }

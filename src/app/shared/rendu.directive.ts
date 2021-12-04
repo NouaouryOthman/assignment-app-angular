@@ -7,8 +7,6 @@ export class RenduDirective {
 
   constructor(el:ElementRef) {
     el.nativeElement.style.color = 'green';
-    el.nativeElement.style.border = '1px solid purple';
-    el.nativeElement.style.backgroundColor = 'lightgrey';
   }
 
 }
