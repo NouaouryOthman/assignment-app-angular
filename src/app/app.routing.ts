@@ -3,28 +3,37 @@ import { AddAssignmentComponent } from "./assignments/add-assignment/add-assignm
 import { AssignmentDetailComponent } from "./assignments/assignment-detail/assignment-detail.component";
 import { AssignmentsComponent } from "./assignments/assignments.component";
 import { EditAssignmentComponent } from "./assignments/edit-assignment/edit-assignment.component";
+import { LoginComponent } from "./auth/login/login.component";
 import { AuthGuard } from "./shared/auth.guard";
 
-const routes:Routes = [
+const routes: Routes = [
   {
-    path:"",
-    component:AssignmentsComponent
+    path:"login",
+    component:LoginComponent
   },
   {
-    path:"home",
-    component:AssignmentsComponent
+    path: "",
+    component: AssignmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:"add",
-    component:AddAssignmentComponent
+    path: "home",
+    component: AssignmentsComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:"assignment/:id",
-    component:AssignmentDetailComponent
+    path: "add",
+    component: AddAssignmentComponent,
+    canActivate: [AuthGuard]
   },
   {
-    path:"assignment/:id/edit",
-    component:EditAssignmentComponent,
+    path: "assignment/:id",
+    component: AssignmentDetailComponent,
+    canActivate: [AuthGuard]
+  },
+  {
+    path: "assignment/:id/edit",
+    component: EditAssignmentComponent,
     canActivate: [AuthGuard]
   },
   // appelé lorsque aucune route n'a matché...
@@ -34,4 +43,4 @@ const routes:Routes = [
   }
 ]
 
-export {routes}
+export { routes }

@@ -30,7 +30,8 @@ export class AssignmentsComponent implements OnInit {
   displayedColumns: string[] = ['id', 'nom', 'dateDeRendu', 'rendu', 'supprimer', 'modifier', 'valider'];
 
   clickedRows = new Set<Assignment>();
-  constructor(private assignmentsService: AssignmentsService, private snackBar: MatSnackBar) { }
+  constructor(private assignmentsService: AssignmentsService, private snackBar: MatSnackBar,
+              private router:Router) { }
 
   ngOnInit(): void {
     console.log('Appelé avant affichage');
@@ -106,5 +107,15 @@ export class AssignmentsComponent implements OnInit {
     if (mode == 'valider') {
       this.snackBar.open('Le devoir ' + assignment.nom + ' a été marqué rendu', 'Ok');
     }
+  }
+
+  genererDonneesDeTest() {
+    this.assignmentsService.peuplerBDAvecForkJoin()
+      .subscribe(() => {
+        // ok, les 1000 données ont bien été insérées...
+        console.log("TOUTES LES DONNEES ONT BIEN ETE INSEREES");
+
+        this.router.navigate(["/home"]);
+      });
   }
 }

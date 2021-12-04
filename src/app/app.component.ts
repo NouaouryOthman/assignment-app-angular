@@ -12,25 +12,28 @@ import { AuthService } from './shared/auth.service';
 export class AppComponent {
   titre = 'Application de gestion des assignments';
 
-  constructor(private authService:AuthService,
-              private assignmentsService:AssignmentsService,
-              private router:Router) {}
+  constructor(private authService: AuthService,
+    private assignmentsService: AssignmentsService,
+    private router: Router) { }
 
-  loginLogout() {
-    if(this.authService.loggedIn) {
+
+    /*
+    loginLogout() {
+    if (this.authService.loggedIn) {
       this.authService.logOut();
     } else {
       this.authService.logIn();
     }
-  }
+  }*/
+  
 
   genererDonneesDeTest() {
     this.assignmentsService.peuplerBDAvecForkJoin()
-    .subscribe(() => {
-      // ok, les 1000 données ont bien été insérées...
-      console.log("TOUTES LES DONNEES ONT BIEN ETE INSEREES");
+      .subscribe(() => {
+        // ok, les 1000 données ont bien été insérées...
+        console.log("TOUTES LES DONNEES ONT BIEN ETE INSEREES");
 
-      this.router.navigate(["/home"]);
-    });
+        this.router.navigate(["/home"]);
+      });
   }
 }

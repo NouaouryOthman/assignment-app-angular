@@ -31,7 +31,7 @@ export class AuthGuard implements CanActivate {
       }
       else {
         console.log("Navigation non autorisée")
-        this.router.navigate(['/home']);
+        this.router.navigate(['/login']);
         return false;
       }
     });
