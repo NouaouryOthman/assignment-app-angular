@@ -14,7 +14,7 @@ export class AssignmentsService {
     private http:HttpClient) { }
 
     //url = 'http://localhost:8010/api/assignments';
-    url = 'https://assignment-app-api-nouaoury.herokuapp.com/api/assignments';
+    url = 'https://assignment-api-nouaoury-mounir.herokuapp.com/api/assignments';
 
   getAssignments():Observable<Assignment[]> {
     //return of(this.assignments);
