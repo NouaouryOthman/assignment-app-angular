@@ -14,18 +14,19 @@ export class AppComponent {
 
   constructor(private authService: AuthService,
     private assignmentsService: AssignmentsService,
-    private router: Router) { }
+    private router: Router, private auth: AuthService) { }
 
+  state(): boolean { return this.auth.isLoggedIn(); }
 
-    /*
-    loginLogout() {
-    if (this.authService.loggedIn) {
-      this.authService.logOut();
-    } else {
-      this.authService.logIn();
-    }
+  /*
+  loginLogout() {
+  if (this.authService.loggedIn) {
+    this.authService.logOut();
+  } else {
+    this.authService.logIn();
+  }
   }*/
-  
+
 
   genererDonneesDeTest() {
     this.assignmentsService.peuplerBDAvecForkJoin()
@@ -36,4 +37,11 @@ export class AppComponent {
         this.router.navigate(["/home"]);
       });
   }
+
+  logout() {
+    this.auth.logOut();
+    this.router.navigate(["/login"]);
+  }
+
+
 }

@@ -35,6 +35,10 @@ export class AuthService {
     this.loggedIn = false;
   }
 
+  isLoggedIn(){
+    return this.loggedIn;
+  }
+
   isAdmin() {
     // renvoie true ou false juste si on est connecté/deconnecté
     return new Promise((resolve, reject) => {

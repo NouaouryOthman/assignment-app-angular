@@ -3,6 +3,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { ignoreElements } from 'rxjs';
 import { AssignmentsService } from '../shared/assignments.service';
+import { AuthService } from '../shared/auth.service';
 import { Assignment } from './assignment.model';
 
 @Component({
@@ -31,7 +32,7 @@ export class AssignmentsComponent implements OnInit {
 
   clickedRows = new Set<Assignment>();
   constructor(private assignmentsService: AssignmentsService, private snackBar: MatSnackBar,
-              private router:Router) { }
+              private router:Router,private auth:AuthService) { }
 
   ngOnInit(): void {
     console.log('Appelé avant affichage');
@@ -117,5 +118,10 @@ export class AssignmentsComponent implements OnInit {
 
         this.router.navigate(["/home"]);
       });
+  }
+
+  logout(){
+    this.auth.logOut();
+    this.router.navigate(["/login"]);
   }
 }

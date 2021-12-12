@@ -1,10 +1,19 @@
-<h1>
-    <nav>
-        <a routerLink="/home">{{titre}}</a>
-    </nav>
-</h1>
 <!--
 <mat-slide-toggle (click)="loginLogout()">Login</mat-slide-toggle>-->
+
+<p>
+    <mat-toolbar color="primary">
+
+        <span>Assignment App</span>
+        <span class="example-spacer"></span>
+        <button mat-flat-button class="espace-buttons" *ngIf="state()" (click)="genererDonneesDeTest()">Peupler BD
+      </button>
+        <a routerLink="/add">
+            <button mat-flat-button class="espace-buttons" *ngIf="state()" color="accent">Ajouter Assignment</button>
+        </a>
+        <button mat-flat-button class="espace-buttons" *ngIf="state()" color="warn" (click)="logout()">Deconnexion</button>
+    </mat-toolbar>
+</p>
 
 <router-outlet></router-outlet>
 <!--

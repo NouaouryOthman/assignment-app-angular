@@ -1,13 +1,4 @@
 <main class="container">
-    <div class="ajouterBtn">
-        <a routerLink="/add">
-            <button mat-raised-button color="primary" (click)="genererDonneesDeTest()">Peupler BD</button>
-            <button mat-flat-button color="accent">
-        Ajouter Assignment
-      </button>
-        </a>
-    </div>
-
     <h2>Liste des assignments :</h2>
     <p>Nb total d'assignments = {{totalDocs}}</p>
     <p>Nb de pages = {{totalPages}}</p>
@@ -17,10 +8,10 @@
     </p>
 
     <div class="container2">
-        <button mat-stroked-button (click)="premierePage()" [disabled]="!hasPrevPage">PREMIERE PAGE</button>
-        <button mat-stroked-button (click)="pagePrecedente()" [disabled]="!hasPrevPage">PRECEDENT</button>
-        <button mat-stroked-button (click)="pageSuivante()" [disabled]="!hasNextPage">SUIVANT</button>
-        <button mat-stroked-button (click)="dernierePage()" [disabled]="!hasNextPage">DERNIERE PAGE</button>
+        <button mat-stroked-button (click)="premierePage()" class="espace-buttons" [disabled]="!hasPrevPage">PREMIERE PAGE</button>
+        <button mat-stroked-button (click)="pagePrecedente()" class="espace-buttons" [disabled]="!hasPrevPage">&#8249;</button>
+        <button mat-stroked-button (click)="pageSuivante()" class="espace-buttons" [disabled]="!hasNextPage">&#8250;</button>
+        <button mat-stroked-button (click)="dernierePage()" class="espace-buttons" [disabled]="!hasNextPage">DERNIERE PAGE</button>
     </div>
     <div class="example-container mat-elevation-z8">
         <table mat-table ng-sticky-header [dataSource]="assignments" class="mat-elevation-z8">
@@ -47,26 +38,26 @@
                 <th mat-header-cell *matHeaderCellDef> </th>
                 <td mat-cell *matCellDef="let assignment">
                     <button mat-raised-button color="primary">
-            <a routerLink="/assignment/{{assignment.id}}/edit">
-              <mat-icon class="mat-icon" aria-hidden="true">edit</mat-icon>
-            </a>
-          </button>
+                        <a routerLink="/assignment/{{assignment.id}}/edit">
+                            <mat-icon class="mat-icon" aria-hidden="true">edit</mat-icon>
+                        </a>
+                    </button>
                 </td>
             </ng-container>
             <ng-container matColumnDef="supprimer">
                 <th mat-header-cell *matHeaderCellDef> </th>
                 <td mat-cell *matCellDef="let assignment">
                     <button mat-raised-button color="warn" (click)="onDelete(assignment); openSnackBar(assignment, 'supprimer') ">
-            <mat-icon aria-hidden="true">delete</mat-icon>
-          </button>
+                        <mat-icon aria-hidden="true">delete</mat-icon>
+                    </button>
                 </td>
             </ng-container>
             <ng-container matColumnDef="valider">
                 <th mat-header-cell *matHeaderCellDef> </th>
                 <td mat-cell *matCellDef="let assignment">
                     <button mat-raised-button class="validate-button" [disabled]="assignment.rendu" (click)="onValidate(assignment); openSnackBar(assignment, 'valider')">
-            <mat-icon aria-hidden="true">check_circle</mat-icon>
-          </button>
+                        <mat-icon aria-hidden="true">check_circle</mat-icon>
+                    </button>
                 </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></tr>
