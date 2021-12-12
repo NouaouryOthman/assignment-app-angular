@@ -8,10 +8,12 @@
     </p>
 
     <div class="container2">
-        <button mat-stroked-button (click)="premierePage()" class="espace-buttons" [disabled]="!hasPrevPage">PREMIERE PAGE</button>
+        <button mat-stroked-button (click)="premierePage()" class="espace-buttons" [disabled]="!hasPrevPage">PREMIERE
+            PAGE</button>
         <button mat-stroked-button (click)="pagePrecedente()" class="espace-buttons" [disabled]="!hasPrevPage">&#8249;</button>
         <button mat-stroked-button (click)="pageSuivante()" class="espace-buttons" [disabled]="!hasNextPage">&#8250;</button>
-        <button mat-stroked-button (click)="dernierePage()" class="espace-buttons" [disabled]="!hasNextPage">DERNIERE PAGE</button>
+        <button mat-stroked-button (click)="dernierePage()" class="espace-buttons" [disabled]="!hasNextPage">DERNIERE
+            PAGE</button>
     </div>
     <div class="example-container mat-elevation-z8">
         <table mat-table ng-sticky-header [dataSource]="assignments" class="mat-elevation-z8">
@@ -49,6 +51,17 @@
                 <td mat-cell *matCellDef="let assignment">
                     <button mat-raised-button color="warn" (click)="onDelete(assignment); openSnackBar(assignment, 'supprimer') ">
                         <mat-icon aria-hidden="true">delete</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+            <ng-container matColumnDef="details">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td mat-cell *matCellDef="let assignment">
+                    <button mat-raised-button color="basic">
+                        <a routerLink="/assignment/{{assignment.id}}">
+                            <mat-icon class="mat-icon" aria-hidden="true">search
+                            </mat-icon>
+                        </a>
                     </button>
                 </td>
             </ng-container>
