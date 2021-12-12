@@ -49,7 +49,7 @@
             <ng-container matColumnDef="supprimer">
                 <th mat-header-cell *matHeaderCellDef> </th>
                 <td mat-cell *matCellDef="let assignment">
-                    <button mat-raised-button color="warn" (click)="onDelete(assignment); openSnackBar(assignment, 'supprimer') ">
+                    <button mat-raised-button color="warn" (click)="openDialog(assignment)">
                         <mat-icon aria-hidden="true">delete</mat-icon>
                     </button>
                 </td>

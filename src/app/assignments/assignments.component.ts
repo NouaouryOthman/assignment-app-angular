@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { ignoreElements } from 'rxjs';
 import { AssignmentsService } from '../shared/assignments.service';
 import { AuthService } from '../shared/auth.service';
 import { Assignment } from './assignment.model';
@@ -32,7 +32,7 @@ export class AssignmentsComponent implements OnInit {
 
   clickedRows = new Set<Assignment>();
   constructor(private assignmentsService: AssignmentsService, private snackBar: MatSnackBar,
-              private router:Router,private auth:AuthService) { }
+              private router:Router,private auth:AuthService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     console.log('Appelé avant affichage');
@@ -82,6 +82,22 @@ export class AssignmentsComponent implements OnInit {
     this.getAssignments();
   }
 
+  openDialog(assignment: Assignment): void {
+    const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
+      width: '300px',
+      data: assignment,
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(result);
+      assignment = result;
+      this.assignmentsService.deleteAssignment(assignment).subscribe((response) => {
+        this.openSnackBar(assignment, 'supprimer');
+        this.getAssignments();
+        console.log(response.message);
+      });
+    });
+  }
   onDelete(assignment: Assignment) {
     this.assignmentsService.deleteAssignment(assignment).subscribe((response) => {
       this.getAssignments();
@@ -123,5 +139,20 @@ export class AssignmentsComponent implements OnInit {
   logout(){
     this.auth.logOut();
     this.router.navigate(["/login"]);
+  }
+}
+
+@Component({
+  selector: 'dialog-overview-example-dialog',
+  templateUrl: 'dialog-overview-example-dialog.html',
+})
+export class DialogOverviewExampleDialog {
+  constructor(
+    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: Assignment,
+  ) {}
+
+  onNoClick(): void {
+    this.dialogRef.close();
   }
 }

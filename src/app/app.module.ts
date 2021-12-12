@@ -17,7 +17,7 @@ import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AssignmentsComponent } from './assignments/assignments.component';
+import { AssignmentsComponent, DialogOverviewExampleDialog } from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
 import { NonrenduDirective } from './shared/nonrendu.directive';
 import { FormsModule } from '@angular/forms';
@@ -28,6 +28,7 @@ import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assi
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { LoginComponent } from './auth/login/login.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatDialogModule } from '@angular/material/dialog'
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     AssignmentDetailComponent,
     AddAssignmentComponent,
     EditAssignmentComponent,
-    LoginComponent
+    LoginComponent,
+    DialogOverviewExampleDialog
   ],
   imports: [
     BrowserModule, FormsModule,
@@ -46,7 +48,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
     MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule,
     MatListModule, MatCardModule, MatCheckboxModule, MatSlideToggleModule,
     MatSliderModule,HttpClientModule,RouterModule.forRoot(routes, {onSameUrlNavigation: 'reload'}),
-    MatTableModule, MatSnackBarModule, MatToolbarModule
+    MatTableModule, MatSnackBarModule, MatToolbarModule, MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]
