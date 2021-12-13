@@ -1,13 +1,16 @@
-<form ngForm #assignmentForm class="form" (submit)="onSubmit(); assignmentForm.reset();">
-    <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input matInput placeholder="Email" [(ngModel)]="email" name="email">
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput placeholder="Password" [type]="'password'" [(ngModel)]="password" name="password">
-    </mat-form-field>
-    <button mat-stroked-button color="primary">
-      Login
-    </button>
-</form>
+<mat-card>
+    <mat-card-content>
+        <form ngForm #loginForm (submit)="onSubmit(); loginForm.reset();">
+            <h2>Se connecter</h2>
+            <mat-form-field class="full-width-input">
+                <mat-label>Email</mat-label>
+                <input matInput placeholder="Email" [(ngModel)]="email" name="email">
+            </mat-form-field>
+            <mat-form-field class="full-width-input">
+                <mat-label>Mot de passe</mat-label>
+                <input matInput placeholder="Password" [type]="'password'" [(ngModel)]="password" name="password">
+            </mat-form-field>
+            <button mat-raised-button color="primary">Login</button>
+        </form>
+    </mat-card-content>
+</mat-card>

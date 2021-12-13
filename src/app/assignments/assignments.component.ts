@@ -28,11 +28,11 @@ export class AssignmentsComponent implements OnInit {
   prevPage: number = 0;
   hasNextPage: boolean = false;
   nextPage: number = 0;
-  displayedColumns: string[] = ['id', 'nom', 'dateDeRendu', 'rendu', 'supprimer', 'modifier','details', 'valider'];
+  displayedColumns: string[] = ['id', 'nom', 'dateDeRendu', 'rendu', 'supprimer', 'modifier', 'details', 'valider'];
 
   clickedRows = new Set<Assignment>();
   constructor(private assignmentsService: AssignmentsService, private snackBar: MatSnackBar,
-              private router:Router,private auth:AuthService, private dialog: MatDialog) { }
+    private router: Router, private auth: AuthService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     console.log('Appelé avant affichage');
@@ -82,7 +82,7 @@ export class AssignmentsComponent implements OnInit {
     this.getAssignments();
   }
 
-  openDialog(assignment: Assignment): void {
+  openDialog(assignment: Assignment, mode: string): void {
     const dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
       width: '300px',
       data: assignment,
@@ -91,11 +91,21 @@ export class AssignmentsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(result => {
       console.log(result);
       assignment = result;
-      this.assignmentsService.deleteAssignment(assignment).subscribe((response) => {
-        this.openSnackBar(assignment, 'supprimer');
-        this.getAssignments();
-        console.log(response.message);
-      });
+      if (mode == 'supprimer') {
+        this.assignmentsService.deleteAssignment(assignment).subscribe((response) => {
+          this.openSnackBar(assignment, 'supprimer');
+          this.getAssignments();
+          console.log(response.message);
+        });
+      }
+      else if (mode == 'valider') {
+        this.assignmentsService.updateAssignment(assignment)
+          .subscribe((response) => {
+            this.openSnackBar(assignment, 'valider');
+            this.getAssignments();
+            console.log(response.message);
+          });
+      }
     });
   }
   onDelete(assignment: Assignment) {
@@ -106,10 +116,6 @@ export class AssignmentsComponent implements OnInit {
   }
 
   onValidate(assignment: Assignment) {
-    if (!assignment.rendu) {
-      assignment.rendu = true;
-    }
-    else { assignment.rendu = false; }
     this.assignmentsService.updateAssignment(assignment)
       .subscribe((response) => {
         this.getAssignments();
@@ -136,7 +142,7 @@ export class AssignmentsComponent implements OnInit {
       });
   }
 
-  logout(){
+  logout() {
     this.auth.logOut();
     this.router.navigate(["/login"]);
   }
@@ -150,7 +156,7 @@ export class DialogOverviewExampleDialog {
   constructor(
     public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: Assignment,
-  ) {}
+  ) { }
 
   onNoClick(): void {
     this.dialogRef.close();
